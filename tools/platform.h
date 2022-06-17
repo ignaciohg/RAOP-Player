@@ -21,35 +21,11 @@
 #ifndef __PLATFORM_H
 #define __PLATFORM_H
 
-#if defined(linux)
-#define LINUX     1
-#define OSX       0
-#define WIN       0
-#define FREEBSD   0
-#elif defined (__APPLE__)
-#define LINUX     0
-#define OSX       1
-#define WIN       0
-#define FREEBSD   0
-#elif defined (_MSC_VER) || defined(__BORLANDC__)
-#define LINUX     0
-#define OSX       0
-#define WIN       1
-#define FREEBSD   0
-#elif defined(__FreeBSD__)
-#define LINUX     0
-#define OSX       0
-#define WIN       0
-#define FREEBSD   1
-#else
-#error unknown target
-#endif
+
 
 #include <stdbool.h>
 #include <signal.h>
 #include <sys/stat.h>
-
-#if LINUX || OSX || FREEBSD
 #include <sys/types.h>
 #include <unistd.h>
 #include <netinet/in.h>
@@ -82,57 +58,14 @@ char *strlwr(char *str);
 char *GetTempPath(u16_t size, char *path);
 #define closesocket close
 
-#endif
-
-#if WIN
-
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#include <io.h>
-#include <sys/timeb.h>
-
-typedef unsigned __int8  u8_t;
-typedef unsigned __int16 u16_t;
-typedef unsigned __int32 u32_t;
-typedef unsigned __int64 u64_t;
-typedef __int16 s16_t;
-typedef __int32 s32_t;
-typedef __int64 s64_t;
-
-#define inline __inline
-
-int gettimeofday(struct timeval *tv, struct timezone *tz);
-
-//#define poll(fds,numfds,timeout) WSAPoll(fds,numfds,timeout)
-#define usleep(x) Sleep((x)/1000)
-#define sleep(x) Sleep((x)*1000)
-#define last_error() WSAGetLastError()
-#define ERROR_WOULDBLOCK WSAEWOULDBLOCK
-#define open _open
-#define read _read
-#define snprintf _snprintf
-#define fresize(f, s) chsize(fileno(f), s)
-#define strcasecmp stricmp
-#define _random(x) random(x)
-#define VALGRIND_MAKE_MEM_DEFINED(x,y)
-
-#define in_addr_t u32_t
-#define socklen_t int
-#define ssize_t int
-
-#define RTLD_NOW 0
-
-#endif
 
 typedef u8_t  __u8;
 typedef u16_t __u16;
 typedef u32_t __u32;
 typedef s16_t __s16;
 typedef s32_t __s32;
-#ifndef __aarch64__
 typedef u64_t __u64;
 typedef s64_t __s64;
-#endif
 
 typedef struct ntp_s {
 	__u32 seconds;
