@@ -62,7 +62,7 @@
 #include <dlfcn.h>
 #include <pthread.h>
 #include <errno.h>
-#include <memcheck.h>
+#include <valgrind/memcheck.h>
 
 typedef u_int8_t  u8_t;
 typedef u_int16_t u16_t;
