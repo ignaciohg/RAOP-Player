@@ -64,5 +64,5 @@ Win32
 *.pcm
 
 # CMake build folder
-/build/
+subprojects/*
 
