@@ -43,7 +43,7 @@ meson builddir
 cd builddir
 
 # Build project
-ninja
+meson compile
 ```
 
 ## Extra Info
